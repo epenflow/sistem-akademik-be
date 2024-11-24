@@ -8,3 +8,11 @@ export enum Gender {
 	MAN = 'MAN',
 	WOMAN = 'WOMAN',
 }
+
+export enum AbilityActions {
+	MANAGE = 'manage',
+	CREATE = 'create',
+	READ = 'read',
+	UPDATE = 'update',
+	DELETE = 'delete',
+}

@@ -8,10 +8,12 @@ import { UsersModule } from 'src/main/users/users.module';
  *
  */
 import {
+	AbilityModule,
 	EntityModule,
 	ServiceModule,
 	ValidationModule,
 } from 'src/common/modules';
+import { AuthModule } from 'src/main/auth/auth.module';
 
 @Module({
 	imports: [
@@ -25,6 +27,7 @@ import {
 		EntityModule,
 		ValidationModule,
 		ServiceModule,
+		AbilityModule,
 
 		/**
 		 *
@@ -33,6 +36,7 @@ import {
 		 * ----------------------------------------------------------
 		 *
 		 */
+		AuthModule,
 		UsersModule,
 	],
 	exports: [
@@ -53,6 +57,7 @@ import {
 		 * ----------------------------------------------------------
 		 *
 		 */
+		AuthModule,
 		UsersModule,
 	],
 })

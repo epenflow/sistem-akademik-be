@@ -41,7 +41,6 @@ export class UsersService {
 
 		if (user.role === UserRole.SISWA) {
 			const createSiswa = this.siswa.create({ ...details, user });
-			this.logger.debug(createSiswa);
 			await this.siswa.save(createSiswa);
 		}
 		if (user.role === UserRole.GURU) {

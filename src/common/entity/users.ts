@@ -59,9 +59,15 @@ export class Users {
 	 * ----------------------------------------------------------
 	 *
 	 */
-	@OneToOne(() => Siswa, (siswa) => siswa.user)
+	@OneToOne(() => Siswa, (siswa) => siswa.user, {
+		onDelete: 'CASCADE',
+		onUpdate: 'CASCADE',
+	})
 	siswa: Siswa;
 
-	@OneToOne(() => Guru, (guru) => guru.user)
+	@OneToOne(() => Guru, (guru) => guru.user, {
+		onDelete: 'CASCADE',
+		onUpdate: 'CASCADE',
+	})
 	guru: Guru;
 }
