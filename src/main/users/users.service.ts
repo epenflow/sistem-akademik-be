@@ -1,8 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDetailsDTO } from 'src/common/dto/user.dto';
 import { Guru, Siswa, Users } from 'src/common/entity';
 import { UserRole } from 'src/common/enums';
+import { BcryptService } from 'src/common/services';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -15,13 +16,16 @@ export class UsersService {
 		private readonly siswa: Repository<Siswa>,
 		@InjectRepository(Guru)
 		private readonly guru: Repository<Guru>,
+		@Inject(BcryptService)
+		private readonly bcrypt: BcryptService,
 	) {}
 
 	async create(users: UserDetailsDTO) {
+		const password = await this.bcrypt.hash(users.password);
 		const _user_: Partial<Users> = {
 			username: users.username,
 			email: users.email,
-			password: users.password,
+			password,
 			role: users.role,
 		};
 		const createUser = this.users.create(_user_);

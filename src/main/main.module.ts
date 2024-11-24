@@ -1,6 +1,17 @@
 import { Module } from '@nestjs/common';
-import { EntityModule, ValidationModule } from 'src/common/modules';
 import { UsersModule } from 'src/main/users/users.module';
+/**
+ *
+ * ----------------------------------------------------------
+ * Custom module
+ * ----------------------------------------------------------
+ *
+ */
+import {
+	EntityModule,
+	ServiceModule,
+	ValidationModule,
+} from 'src/common/modules';
 
 @Module({
 	imports: [
@@ -13,6 +24,7 @@ import { UsersModule } from 'src/main/users/users.module';
 		 */
 		EntityModule,
 		ValidationModule,
+		ServiceModule,
 
 		/**
 		 *
@@ -32,6 +44,7 @@ import { UsersModule } from 'src/main/users/users.module';
 		 *
 		 */
 		ValidationModule,
+		ServiceModule,
 
 		/**
 		 *

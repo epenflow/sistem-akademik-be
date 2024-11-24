@@ -49,6 +49,7 @@ export class UsersDTO {
 export class UserDetailsDTO extends UsersDTO {
 	@IsString()
 	@IsNotEmpty()
+	@MaxLength(100)
 	nama: string;
 
 	@IsDate()
