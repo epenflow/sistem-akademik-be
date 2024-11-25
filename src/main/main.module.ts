@@ -14,6 +14,7 @@ import {
 	ValidationModule,
 } from 'src/common/modules';
 import { AuthModule } from 'src/main/auth/auth.module';
+import { SiswaModule } from 'src/main/siswa/siswa.module';
 
 @Module({
 	imports: [
@@ -38,6 +39,7 @@ import { AuthModule } from 'src/main/auth/auth.module';
 		 */
 		AuthModule,
 		UsersModule,
+		SiswaModule,
 	],
 	exports: [
 		/**
@@ -59,6 +61,7 @@ import { AuthModule } from 'src/main/auth/auth.module';
 		 */
 		AuthModule,
 		UsersModule,
+		SiswaModule,
 	],
 })
 export class MainModule {}

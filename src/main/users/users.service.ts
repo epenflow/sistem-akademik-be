@@ -20,39 +20,51 @@ export class UsersService {
 		private readonly bcrypt: BcryptService,
 	) {}
 
-	async create(users: UserDetailsDTO) {
-		const password = await this.bcrypt.hash(users.password);
-		const _user_: Partial<Users> = {
-			username: users.username,
-			email: users.email,
+	async create(inputs: UserDetailsDTO) {
+		const password = await this.bcrypt.hash(inputs.password);
+		const usersInput: Partial<Users> = {
+			username: inputs.username,
+			email: inputs.email,
 			password,
-			role: users.role,
+			role: inputs.role,
 		};
-		const createUser = this.users.create(_user_);
+		const createUser = this.users.create(usersInput);
 		const user = await this.users.save(createUser);
 
-		const details: Partial<UserDetailsDTO> = {
-			nama: users.nama,
-			tanggal_lahir: users.tanggal_lahir,
-			jenis_kelamin: users.jenis_kelamin,
-			alamat: users.alamat,
-			no_telepon: users.no_telepon,
+		const userDetailsInput: Partial<UserDetailsDTO> = {
+			nama: inputs.nama,
+			tanggal_lahir: inputs.tanggal_lahir,
+			jenis_kelamin: inputs.jenis_kelamin,
+			alamat: inputs.alamat,
+			no_telepon: inputs.no_telepon,
 		};
 
-		if (user.role === UserRole.SISWA) {
-			const createSiswa = this.siswa.create({ ...details, user });
-			await this.siswa.save(createSiswa);
+		switch (user.role) {
+			case UserRole.SISWA:
+				const createSiswa = this.siswa.create({
+					...userDetailsInput,
+					user,
+				});
+				await this.siswa.save(createSiswa);
+				break;
+			case UserRole.ADMIN:
+				const createGuru = this.guru.create({
+					...userDetailsInput,
+					user,
+				});
+				await this.guru.save(createGuru);
 		}
-		if (user.role === UserRole.GURU) {
-			const createGuru = this.guru.create({
-				...details,
-				user,
-			});
-			await this.guru.save(createGuru);
-		}
+
 		return user;
 	}
-	async get() {
+	async find() {
 		return await this.users.find();
+	}
+
+	async findOne(id: string) {
+		const user = await this.users.findOne({
+			where: { id },
+		});
+		return user;
 	}
 }

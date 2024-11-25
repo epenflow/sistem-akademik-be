@@ -5,3 +5,12 @@ export interface JWTPayload {
 	email: string;
 	role: UserRole;
 }
+export interface JWTPayloadResponse extends JWTPayload {
+	iat: number;
+	exp: number;
+}
+
+export interface AuthResponse {
+	token: string;
+	payload: JWTPayloadResponse;
+}

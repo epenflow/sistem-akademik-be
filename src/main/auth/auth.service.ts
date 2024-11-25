@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SignInDTO } from 'src/common/dto';
+import { SignInDTO, SignUpDTO } from 'src/common/dto';
 import { Users } from 'src/common/entity';
 import { JWTPayload } from 'src/common/interfaces';
 import { BcryptService } from 'src/common/services';
@@ -42,5 +42,12 @@ export class AuthService {
 		};
 		const token = await this.jwtService.signAsync(payload);
 		return token;
+	}
+
+	async signUp(inputs: SignUpDTO) {
+		const password = await this.bcryptService.hash(inputs.password);
+		const user = this.users.create({ ...inputs, password });
+
+		return await this.users.save(user);
 	}
 }
